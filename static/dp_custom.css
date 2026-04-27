@@ -1,0 +1,72 @@
+body { 
+    background: #000; 
+    margin: 0; 
+    padding: 0; 
+    width: 100dvw; 
+    height: 100svh; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+}
+
+.container { 
+    width: 100%; 
+    height: 100%; 
+}
+
+.dplayer { 
+    width: 100% !important; 
+    height: 100% !important; 
+}
+
+.overlay { 
+    position:fixed; 
+    top:0; 
+    left:0; 
+    width:100dvw; 
+    height:calc(100svh - 41px); 
+    z-index:99999; 
+    cursor:pointer; 
+    background-color: rgba(0,0,0,0); 
+    justify-content: center; 
+    align-items: center; 
+    display: none;
+}
+video { 
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.overlay.play, .overlay.cycle { 
+    display: flex !important; 
+}
+
+.overlay.play .play_button { 
+    display: block; 
+}
+
+.overlay.cycle .cycle{ 
+    display: block; 
+}
+
+.play_button, .cycle { 
+    display: none; 
+}
+
+.play-button { 
+    display: none; 
+}
+
+.cycle { 
+    display: none; 
+}
+
+.dplayer-mobile-play.hide{ 
+    display: 
+    none !important; 
+}
+.dplayer-mobile-play { 
+    width: 80px; 
+    height: 80px;
+}
