@@ -37,44 +37,51 @@
   </svg>
 </div>
 
+
 <div class="container">
+  <video id="template" style="display: none;"></video>
   <div id="dplayer" playsinline></div>
 </div>
 
 <script src="./static/dp_custom.js"></script>
 <script>
+  
   window.addEventListener("load", (event) => {
-    const dp = new DPlayer({
-      container: document.getElementById('dplayer'),
-      video: { url: PALY_URL ? PALY_URL : '', type: 'hls'},
-      chromecast: true,
-      contextmenu: [
-        { text: '開啟目前播放連結', click: (player) => { window.open(player.video.src); } },
-        { text: '輸入播放連結', click: (player) => { prompt_url(player, true); } },
-      ],
-      preload: 'none',
-      //autoplay: true
-    });
+    let template_video = document.getElementById('template');
+    if (template_video.canPlayType('application/x-mpegURL') || template_video.canPlayType('application/vnd.apple.mpegURL')) {
+      template_video.remove();
+      
+      const dp = new DPlayer({
+        container: document.getElementById('dplayer'),
+        video: { url: PALY_URL ? PALY_URL : '', type: 'hls'},
+        chromecast: true,
+        contextmenu: [
+          { text: '開啟目前播放連結', click: (player) => { window.open(player.video.src); } },
+          { text: '輸入播放連結', click: (player) => { prompt_url(player, true); } },
+        ],
+        preload: 'none',
+        //autoplay: true
+      });
 
-    if (dp) {
-      dp.template.mobilePlayButton.classList.add('hide');
-      addPipButton(dp);
-      showPlayButton();
+      if (dp) {
+        dp.template.mobilePlayButton.classList.add('hide');
+        addPipButton(dp);
+        showPlayButton();
 
-      if (PALY_URL) initDplayer(dp, PALY_URL);
-      else {
-        dp.template.playButton.style.pointerEvents = 'none'; //阻止DPlay右下播放按鍵
-        const handleOverlayClick = () => {
-          if (notic(dp)) { 
-            alert("讀取成功"); 
-            OVERLAY_.removeEventListener('click', handleOverlayClick); 
-            dp.template.playButton.style.pointerEvents = '';
-          }
-        };
-        OVERLAY_.addEventListener('click', handleOverlayClick); 
-      }
-    };
-    
+        if (PALY_URL) initDplayer(dp, PALY_URL);
+        else {
+          dp.template.playButton.style.pointerEvents = 'none'; //阻止DPlay右下播放按鍵
+          const handleOverlayClick = () => {
+            if (notic(dp)) { 
+              alert("讀取成功"); 
+              OVERLAY_.removeEventListener('click', handleOverlayClick); 
+              dp.template.playButton.style.pointerEvents = '';
+            }
+          };
+          OVERLAY_.addEventListener('click', handleOverlayClick); 
+        }
+      };
+    }
   });
 
 </script>
