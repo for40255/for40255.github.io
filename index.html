@@ -122,7 +122,16 @@
 
     dp.on('error', (event) => {
       console.error("發生播放錯誤，類型:", event);
-
+      if (CURR_TRY_NUM < MAX_TRY_NUM) {
+        CURR_TRY_NUM += 1
+        console.warn(`嘗試重新連線中:${CURR_TRY_NUM}...`);
+        dp.notice(`嘗試重新連線中:${CURR_TRY_NUM}...`)
+        setTimeout(() => {
+          loadSource(dp, PALY_URL)
+        }, 500);
+      } else {
+        alert(`已到達最大重試次數:${MAX_TRY_NUM} 結束連線 該網址可能無效或無法播放`);
+      }
     });
     
     window.dp = dp;
