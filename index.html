@@ -81,6 +81,9 @@
           OVERLAY_.addEventListener('click', handleOverlayClick); 
         }
       };
+    } else {
+      template_video.remove();
+      alert('Your browser does not support native HLS playback.');
     }
   });
 
